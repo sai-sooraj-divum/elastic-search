@@ -1,0 +1,19 @@
+.header {
+  width: 96%;
+  background-color: white;
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  font-family: "Montserrat";
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  &__subDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+}
