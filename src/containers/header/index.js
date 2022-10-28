@@ -7,6 +7,7 @@ export const Header = () => {
   let headerMenu = [
     { name: "Upload", path: "/upload" },
     { name: "Search", path: "/search" },
+    { name: "History", path: "/history" },
   ];
 
   return (
