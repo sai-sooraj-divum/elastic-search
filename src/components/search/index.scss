@@ -35,3 +35,15 @@
     margin: 1rem 2rem 2rem 0;
   }
 }
+
+.entries {
+  text-align: center;
+  border-collapse: collapse;
+  border: 3px solid #ddd;
+  width: 100%;
+}
+
+.entries td, .entries th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}

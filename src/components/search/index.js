@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { searchAPI } from "../../actions/search/action";
 import close from "../../assets/images/close.svg";
+import CustomTable from "../customTable/customTable";
 import Loader from "../loader";
+import Table from "../table/table";
 import "./index.scss";
+import { tableKeys } from "../../constants/app-constants";
 
 export const Search = () => {
   const [searchApiData, setSearchApiData] = useState();
@@ -73,18 +76,65 @@ export const Search = () => {
                   {searchApiData &&
                     searchApiData.result &&
                     searchApiData.result.map((data) => (
-                      <div className="search__tilesDiv">
+                      <div
+                        className="search__tilesDiv"
+                        style={{
+                          display: data._source.file_type !== "pdf" && "none",
+                        }}
+                      >
                         <p className="search__tilesDiv-phrase">
-                          {data._source.file_type == "pdf"
-                            ? data._source.content +
+                          {data._source.file_type == "pdf" &&
+                            data._source.content +
                               data.file_name +
                               data.file_type +
                               data.id +
-                              data.timestamp
-                            : JSON.stringify(data._source)}
+                              data.timestamp}
                         </p>
                       </div>
                     ))}
+
+                  {searchApiData &&
+                    searchApiData.result &&
+                    searchApiData.result.map(
+                      (data, index) =>
+                        data._source.file_type !== "pdf" &&
+                        data._source &&
+                        data._source[tableKeys.NAME] && (
+                          <>
+                            <div className="search__tilesDiv">
+                              <p className="search__tilesDiv-phrase">
+                                <table
+                                  className="entries"
+                                  style={{ display: !(index === 0) && "none" }}
+                                >
+                                  <tr>
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                  </tr>
+                                </table>
+                                <Table data={data._source} />
+                              </p>
+                            </div>
+                          </>
+                        )
+                    )}
+
+                  {searchApiData &&
+                    searchApiData.result &&
+                    searchApiData.result.map(
+                      (data) =>
+                        !(
+                          data._source.file_type !== "pdf" &&
+                          data._source &&
+                          data._source[tableKeys.NAME]
+                        ) && (
+                          <div className="search__tilesDiv">
+                            <p className="search__tilesDiv-phrase">
+                              <CustomTable data={data._source} />
+                            </p>
+                          </div>
+                        )
+                    )}
                 </>
               ) : (
                 <p className="search__noResults">
